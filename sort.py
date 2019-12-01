@@ -5,7 +5,7 @@ from stat import *
 Future implementation
 
 if filename/folder does not contain year information
-    scan string/movie using internet and get year of release to improve success rate of files ready to move
+    use string/movie and get year of release online to improve success rate of files/folders ready for move
 '''
 
 
