@@ -1,6 +1,6 @@
-import time, os, re
-from stat import *
-
+import os
+import re
+import api
 '''
 Future implementation
 
@@ -78,6 +78,24 @@ class Directory:
 
 
 class Movie:
+    def __init__(self, api_key):
+        self.ombd_api = api.OMBdApi(api_key)
+
+    def search_movie_online(self, movie_name):
+        response = self.ombd_api.search_by_title(movie_name)
+        if response:
+            return response
+
+    def rename_movie_with_more_details(self, movie_title):
+        response = self.search_movie_online(movie_title)
+        if not response['Response']:
+            print(response['Error'])
+            return None
+
+        title = response['Title']
+        year = response['Year']
+        poster = response['Poster']  # Poster link with image
+
     def get_information_on_file(self, filepath):
         try:
             stats = os.stat(filepath)
@@ -95,4 +113,3 @@ if __name__ == "__main__":
 
     working_directory = Directory(list_directories=directory_movies)
     working_directory.scan_dir()
-
