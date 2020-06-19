@@ -50,7 +50,7 @@ class Directory:
 
         for root, dirs, files in os.walk(self.LIST_OF_DIRECTORIES_TO_SCAN):
             for cur_dir in dirs:
-                if name_new_dir in root:
+                if name_new_dir in root:  # not to scan sorted folder
                     continue
                 if root in root_folders_scanned:
                     continue
@@ -62,7 +62,6 @@ class Directory:
                     self.create_and_move_to_year_folder(path_string_found, name_new_dir, year)
 
                 # if folder did not contain year information. Scan files and move to directory if year in string
-                root_folders_scanned.append(root)
                 print(f'Now scanning: {root}')
                 for file in files:
                     path_string_found, year, string = self.search_string_return_file_path(root, file)
@@ -100,6 +99,7 @@ class Directory:
                         self.move_to_folder(movie_folder_location, movie_location)
 
                         self.create_and_move_to_year_folder(movie_folder_location, name_new_dir, year)
+            root_folders_scanned.append(root)
 
 
 class Movie:
